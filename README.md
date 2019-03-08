@@ -1,9 +1,30 @@
 # esplora
 
+## Init docker swarm and overlay network, once
+```
 docker swarm init
 docker network create --driver=overlay --attachable --opt encrypted esploranet
-docker stack deploy -c docker-compose.yml tls
+```
 
-docker run -d --expose 80 --network=esploranet --name esplora -v /home/debian/data_bitcoin_mainnet:/data --rm -e "VIRTUAL_HOST=explorer.bullbitcoin.com" -e "LETSENCRYPT_HOST=explorer.bullbitcoin.com" -e "LETSENCRYPT_EMAIL=francis@satoshiportal.com" esplora bash -c "/srv/explorer/run.sh bitcoin-mainnet explorer"
+## Do the following line only if data_bitcoin_mainnet doesn't already exist / isn't already mounted
+```
+cd ; mkdir data_bitcoin_mainnet ; sudo mount /dev/vdc data_bitcoin_mainnet/
+```
 
-docker run -d --expose 80 --network=esploranet --name esplora -v /home/debian/data_bitcoin_mainnet:/data --rm -e "VIRTUAL_HOST=explorer.kexkey.com" -e "LETSENCRYPT_HOST=explorer.kexkey.com" -e "LETSENCRYPT_EMAIL=letsencrypt@kexkey.com" esplora bash -c "/srv/explorer/run.sh bitcoin-mainnet explorer"
+## Build the image -- if updating, remove all cached images
+```
+git clone https://github.com/blockstream/esplora
+cp -r esplora-add/* esplora
+cd esplora
+docker build -t esplora .
+```
+
+## Start TLS manager (Let's Encrypt Companion) + Esplora
+```
+docker stack deploy -c docker-compose.yml esplora
+```
+
+## Start Esplora outside of the docker-compose file
+```
+docker run -d --expose 80 --network=esploranet --name esplora -v /home/debian/data_bitcoin_mainnet:/data --rm --env-file esplora.env esplora bash -c "/srv/explorer/run.sh bitcoin-mainnet explorer"
+```

@@ -1,2 +1,5 @@
-docker stack deploy -c docker-compose.yml tls
-docker run -d --expose 80 --network=esploranet --name esplora -v /home/debian/data_bitcoin_mainnet:/data --rm -e "VIRTUAL_HOST=explorer.kexkey.com" -e "LETSENCRYPT_HOST=explorer.kexkey.com" -e "LETSENCRYPT_EMAIL=letsencrypt@kexkey.com" esplora bash -c "/srv/explorer/run.sh bitcoin-mainnet explorer"
+docker stack deploy -c docker-compose.yml esplora
+
+#docker run -d --expose 80 --network=esploranet --name esplora --env-file esplora.env \
+# -v /home/debian/data_bitcoin_mainnet:/data --rm esplora \
+# bash -c "/srv/explorer/run.sh bitcoin-mainnet-bullbitcoin explorer"

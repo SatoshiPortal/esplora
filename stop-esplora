@@ -1,0 +1,4 @@
+docker exec -it esplora supervisorctl stop all
+sleep 5
+#docker stop esplora
+docker stack rm esplora

@@ -40,21 +40,18 @@ services:
       - esploranet
 
 # docker run -d -p 8080:80 -v /home/debian/data_bitcoin_mainnet:/data --rm esplora bash -c "/srv/explorer/run.sh bitcoin-mainnet explorer"
-
-  # esplora:
-  #   image: esplora
-  #   command: bash -c "/srv/explorer/run.sh bitcoin-mainnet explorer"
-  #   expose:
-  #     - "80"
-  #   environment:
-  #     - "VIRTUAL_HOST=explorer.bullbitcoin.com"
-  #     - "LETSENCRYPT_HOST=explorer.bullbitcoin.com"
-  #     - "LETSENCRYPT_EMAIL=francis@satoshiportal.com"
-  #   volumes:
-  #     - "/home/debian/data_bitcoin_mainnet:/data"
-  #   restart: always
-  #   networks:
-  #     - esploranet
+  esplora:
+    image: esplora
+    command: bash -c "/srv/explorer/run.sh bitcoin-mainnet-bullbitcoin explorer"
+#    expose:
+#      - "80"
+    env_file:
+      - esplora.env
+    volumes:
+      - "/home/debian/data_bitcoin_mainnet:/data"
+    restart: always
+    networks:
+      - esploranet
 
 volumes:
   conf:
