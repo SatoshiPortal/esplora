@@ -1,4 +1,5 @@
 docker exec -it `docker ps -q -f name=esplora_esplora` supervisorctl stop all
 sleep 5
 docker stop `docker ps -q -f name=esplora_esplora`
+
 #docker stack rm esplora

@@ -13,10 +13,7 @@ cd ; mkdir data_bitcoin_mainnet ; sudo mount /dev/vdc data_bitcoin_mainnet/
 
 ## Build the image -- if updating, remove all cached images
 ```
-git clone https://github.com/blockstream/esplora
-cp -r esplora-add/* esplora
-cd esplora
-docker build -t esplora .
+./build.sh
 ```
 
 ## Start TLS manager (Let's Encrypt Companion) + Esplora
