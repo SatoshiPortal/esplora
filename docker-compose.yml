@@ -42,7 +42,7 @@ services:
 # docker run -d -p 8080:80 -v /home/debian/data_bitcoin_mainnet:/data --rm esplora bash -c "/srv/explorer/run.sh bitcoin-mainnet explorer"
   esplora:
     image: esplora
-    command: bash -c "/srv/explorer/run.sh bitcoin-mainnet-bullbitcoin explorer"
+    command: bash -c "/srv/explorer/run.sh bitcoin-mainnet-bullbitcoin explorer verbose"
     env_file:
       - esplora.env
     depends_on:
